@@ -8,6 +8,8 @@ export default function Auth(){
   const [ inputs, setInputs ] = useState(initInputs)
   const [ toggle, setToggle ] = useState(false)
 
+  const { signup, login, errMsg, resetAuthErr } = useContext(UserContext)
+
   function handleChange(e){
     const { name, value } = e.target
     setInputs(prevInputs => ({ 
@@ -17,15 +19,15 @@ export default function Auth(){
   }
   function handleSignup(e){
     e.preventDefault()
-    // signup function from context
+    signup(inputs)
   }
   function handlLogin(e){
     e.preventDefault()
-    //login function from context
+    login(inputs)
   }
   function toggleForm(){
     setToggle(prev => !prev)
-    //resetAuthErr from context
+    resetAuthErr()
   }
 
 

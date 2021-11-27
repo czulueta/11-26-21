@@ -2,7 +2,8 @@ import React, { useState } from "react"
 
 const initInputs = { title: "", description: "", imgUrl: ""}
 
-export default function TodoForm(){
+export default function TodoForm(props){
+  const { addTodo } = props
   const [ inputs, setInputs ] = useState(initInputs)
 
   function handleChange(e){
@@ -12,26 +13,33 @@ export default function TodoForm(){
       [name]:value
     }))
   }
+  function handleSubmit(e){
+    e.preventDefault()
+    addTodo(inputs)
+    setInputs(initInputs)
+  }
+
+  const { title, description, imgUrl } = inputs 
   return(
-    <form>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
-        name=""
-        value={}
+        name="title"
+        value={title}
         onChange={handleChange}
-        placeholder="" />
+        placeholder="Title" />
       <input
         type="text"
-        name=""
-        value={}
+        name="description"
+        value={description}
         onChange={handleChange}
-        placeholder="" />
+        placeholder="Description" />
       <input
         type="text"
-        name=""
-        value={}
+        name="imgUrl"
+        value={imgUrl}
         onChange={handleChange}
-        placeholder="" />
+        placeholder="Image Url" />
       <button>Add Todo</button>
     </form>
   )

@@ -8,23 +8,24 @@ import ProtectedRoute from "./components/ProtectedRoute.js"
 import { UserContext } from "./context/UserProvider.js"
 
 export default function App(){
+  const { token, logout } = useContext(UserContext)
   return(
     <div>
-      <Navbar />
+      { token && <Navbar logout={logout}/>}
       <Switch>
         <Route
           exact path="/"
-          render={() => <Auth />} />
+          render={() => token ? <Redirect to="/profile"/> : <Auth />} />
         <ProtectedRoute
-          path="/"
-          component={}
+          path="/profile"
+          component={Profile}
           redirectTo="/"
-          token={} />
+          token={token} />
         <ProtectedRoute
-          path="/"
-          component={}
+          path="/public"
+          component={Public}
           redirectTo="/"
-          token={} />
+          token={token} />
       </Switch>
     </div>
   )
